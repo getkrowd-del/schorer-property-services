@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<!-- BASE:START (managed by Coding Agent — do not edit) -->
+<base href="/schorer-property-services/">
+<!-- BASE:END -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Tailwind CSS for modern responsive utility styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Oswald for strong rugged headings, Inter for high readability -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for iconic symbols representing services -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    
+    
+
+<!-- SEO Meta Tags -->
+<title>Schorer Property Services</title>
+<meta property="og:title" content="Schorer Property Services" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Schorer Property Services" />
+<!-- End SEO Meta Tags -->
+
+
+<script data-field-replace>
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var fields={};
+  var paramMap={
+    'first_name':'firstName','last_name':'lastName','full_name':'fullName',
+    'email':'email','phone':'phone','company':'company',
+    'city':'city','state':'state','country':'country'
+  };
+  var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};
+  var hasUrlFields=false;
+  for(var p in paramMap){
+    var v=params.get(p);
+    if(v){fields[paramMap[p]]=v;hasUrlFields=true;}
+  }
+  var contactId=params.get('contact_id');
+  function esc(s){
+    if(!s)return s;
+    var d=document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function doReplace(data){
+    var r={};
+    r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));
+    r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');
+    r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');
+    r['{{email}}']=esc(data.email||'');
+    r['{{phone}}']=esc(data.phone||'');
+    r['{{company}}']=esc(data.company||'');
+    r['{{city}}']=esc(data.city||'');
+    r['{{state}}']=esc(data.state||'');
+    r['{{country}}']=esc(data.country||'');
+    r['{{date}}']=new Date().toLocaleDateString();
+    r['{{time}}']=new Date().toLocaleTimeString();
+    r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');
+    r['{{tracking_id}}']=esc(data.trackingId||'');
+    r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');
+    r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');
+    r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');
+    r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');
+    r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');
+    r['{{ip_address}}']=esc(data.ipAddress||'');
+    r['{{ip}}']=esc(data.ipAddress||'');
+    if(data.customFields){
+      for(var k in data.customFields){
+        r['{{'+k+'}}']=esc(String(data.customFields[k]||''));
+      }
+    }
+    params.forEach(function(v,k){
+      if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){
+        r['{{'+k+'}}']=esc(v);
+      }
+    });
+    var hasValues=false;
+    for(var key in r){if(r[key]){hasValues=true;break;}}
+    if(!hasValues)return;
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(n){
+        var p=n.parentNode;
+        if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while(node=walker.nextNode()){
+      var txt=node.nodeValue;
+      if(txt&&txt.indexOf('{{')>-1){
+        var changed=txt;
+        for(var ph in r){
+          if(r[ph]&&changed.indexOf(ph)>-1){
+            changed=changed.split(ph).join(r[ph]);
+          }
+        }
+        if(changed!==txt)node.nodeValue=changed;
+      }
+    }
+    var attrs=['value','placeholder','content','alt','title'];
+    attrs.forEach(function(attr){
+      var els=document.querySelectorAll('['+attr+'*="{{"]');
+      for(var i=0;i<els.length;i++){
+        var tag=els[i].tagName;
+        if(skipTags[tag])continue;
+        var val=els[i].getAttribute(attr);
+        if(val){
+          var nv=val;
+          for(var ph in r){
+            if(r[ph]&&nv.indexOf(ph)>-1){
+              nv=nv.split(ph).join(r[ph]);
+            }
+          }
+          if(nv!==val)els[i].setAttribute(attr,nv);
+        }
+      }
+    });
+  }
+  function run(){
+    if(contactId){
+      var xhr=new XMLHttpRequest();
+      xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=4431');
+      xhr.onload=function(){
+        if(xhr.status===200){
+          try{
+            var resp=JSON.parse(xhr.responseText);
+            if(resp.success&&resp.contact){
+              var merged=resp.contact;
+              for(var k in fields){merged[k]=fields[k];}
+              doReplace(merged);
+              return;
+            }
+          }catch(e){}
+        }
+        if(hasUrlFields)doReplace(fields);
+      };
+      xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};
+      xhr.send();
+    }else if(hasUrlFields){
+      doReplace(fields);
+    }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}
+  else{run();}
+})();
+</script>
+<script data-payment>
+(function(){
+  var slug='RRxVNHgS';
+  var apiBase='https://paymegpt.com';
+  var successSubtext='';var successBtnLabel='Continue';var successBtnColor='#16a34a';var successRedirect='';
+  function findEmail(){
+    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
+    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
+    return '';
+  }
+  function findName(){
+    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
+    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
+    return '';
+  }
+  var __realProcessPayment=function(a,b,c,d,e){
+    var amountCents,email,productName,productDescription,customerName,quantity;
+    if(a&&typeof a==='object'){
+      amountCents=a.amountCents;email=a.email;productName=a.productName;
+      productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
+    }else{
+      amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';
+      productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;
+    }
+    if(!email)email=findEmail();
+    if(!customerName)customerName=findName();
+    if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
+    if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}
+    if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
+    var successBase=window.location.href.split('?')[0];
+    var __pLoc=(document.documentElement.lang||navigator.language||'en');
+    return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,locale:__pLoc,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process payment');throw new Error(d.error);}
+    });
+  };
+  Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('payment')==='success'){
+      var pName=urlParams.get('product')||'your item';
+      var overlay=document.createElement('div');overlay.id='payment-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+      var subTxt=successSubtext||('Thank you for purchasing '+pName+'.');
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">'+esc(subTxt)+'</p><button id="lp-pay-success-btn" style="padding:12px 32px;font-size:16px;font-weight:600;background:'+successBtnColor+';color:white;border:none;border-radius:8px;cursor:pointer;">'+esc(successBtnLabel)+'</button></div>';
+      document.body.appendChild(overlay);
+      var pBtn=document.getElementById('lp-pay-success-btn');
+      if(pBtn){pBtn.addEventListener('click',function(){if(successRedirect){window.location.href=successRedirect;}else{overlay.remove();window.history.replaceState({},'',window.location.pathname);}});}
+    }
+  });
+})();
+</script>  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-spsDark text-gray-100 font-sans selection:bg-spsOrange selection:text-white overflow-x-hidden">
+
+    <!-- TOP NOTIFICATION BAR -->
+    <div class="bg-spsOrange text-white text-xs py-2 px-4 text-center font-semibold tracking-wider uppercase flex justify-center items-center gap-4 flex-wrap">
+        <span><i class="fa-solid fa-location-dot mr-1"></i> LOCALLY OWNED & OPERATED</span>
+        <span class="hidden sm:inline">•</span>
+        <span><i class="fa-solid fa-shield-halved mr-1"></i> FULLY INSURED & BONDED</span>
+        <span class="hidden sm:inline">•</span>
+        <a href="tel:3152408570" class="hover:underline flex items-center gap-1">
+            <i class="fa-solid fa-phone animate-bounce mr-1"></i> (315) 240-8570
+        </a>
+    </div>
+
+    <!-- MAIN NAV HEADER -->
+    <header class="sticky top-0 z-40 bg-spsDark/95 backdrop-blur-md border-b border-spsBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Identity -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="bg-spsOrange text-white font-display text-2xl font-black px-3 py-1 skew-x-12 rounded border border-white/20">
+                    <span class="inline-block -skew-x-12">SPS</span>
+                </div>
+                <div>
+                    <span class="font-display text-2xl font-bold tracking-tight text-white block leading-none">
+                        SCHORER <span class="text-spsOrange">PROPERTY</span>
+                    </span>
+                    <span class="text-xs uppercase tracking-[0.2em] text-gray-400 block mt-0.5">Services</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 font-display uppercase tracking-wider text-sm font-semibold">
+                <a href="#services" class="text-gray-300 hover:text-spsOrange transition-all">Services</a>
+                <a href="#transformations" class="text-gray-300 hover:text-spsOrange transition-all">Recent Work</a>
+                <a href="#reviews" class="text-gray-300 hover:text-spsOrange transition-all">Testimonials</a>
+                <a href="#contact" class="text-gray-300 hover:text-spsOrange transition-all">Contact</a>
+            </nav>
+
+            <!-- CTA Phone Action -->
+            <div class="hidden lg:flex items-center gap-4">
+                <a href="tel:3152408570" class="flex items-center gap-2 font-display text-lg text-white hover:text-spsOrange transition">
+                    <div class="bg-spsBorder p-2.5 rounded-full border border-gray-700">
+                        <i class="fa-solid fa-phone text-spsOrange"></i>
+                    </div>
+                    (315) 240-8570
+                </a>
+                <a href="#contact" class="bg-spsOrange hover:bg-spsOrange-hover text-white px-5 py-2.5 rounded-md font-display font-bold uppercase tracking-wider transition skew-x-[-6deg]">
+                    <span class="inline-block skew-x-[6deg]">Get A Free Quote</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-spsDark border-b border-spsBorder px-4 py-6 space-y-4">
+            <a href="#services" onclick="toggleMobileMenu()" class="block text-lg font-display uppercase tracking-wider text-gray-300 hover:text-spsOrange">Services</a>
+            <a href="#transformations" onclick="toggleMobileMenu()" class="block text-lg font-display uppercase tracking-wider text-gray-300 hover:text-spsOrange">Recent Work</a>
+            <a href="#reviews" onclick="toggleMobileMenu()" class="block text-lg font-display uppercase tracking-wider text-gray-300 hover:text-spsOrange">Testimonials</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-lg font-display uppercase tracking-wider text-gray-300 hover:text-spsOrange">Contact</a>
+            <hr class="border-spsBorder">
+            <div class="flex flex-col gap-4">
+                <a href="tel:3152408570" class="flex items-center justify-center gap-2 bg-spsBorder text-white py-3 rounded font-bold">
+                    <i class="fa-solid fa-phone text-spsOrange"></i> Call Now: (315) 240-8570
+                </a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="text-center bg-spsOrange text-white py-3 rounded font-bold uppercase tracking-widest font-display">
+                    Request Online Quote
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION WITH PREMIUM BACKGROUND IMAGE -->
+    <section class="relative bg-gradient-to-br from-spsDark via-spsDark/95 to-spsDark/90 py-16 lg:py-24 overflow-hidden border-b border-spsBorder min-h-[85vh] flex items-center">
+        <!-- High-Impact Background Image Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80" alt="Pristine modern home exterior" class="w-full h-full object-cover opacity-25">
+            <div class="absolute inset-0 bg-gradient-to-t from-spsDark via-spsDark/70 to-spsDark"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-spsDark via-transparent to-spsDark/40"></div>
+        </div>
+
+        <!-- Abstract glowing background effects -->
+        <div class="absolute top-10 right-10 w-96 h-96 bg-spsOrange/15 rounded-full blur-[130px] pointer-events-none z-0"></div>
+        <div class="absolute bottom-10 left-10 w-80 h-80 bg-orange-700/10 rounded-full blur-[110px] pointer-events-none z-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column: Hero Text Context -->
+                <div class="lg:col-span-6 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-spsOrange/15 border border-spsOrange/30 text-spsOrange font-display tracking-widest uppercase text-xs px-3.5 py-1.5 rounded-full">
+                        <span class="w-2 h-2 rounded-full bg-spsOrange animate-ping"></span>
+                        PROUDLY SERVING ROME, NY & SURROUNDING REGIONS
+                    </div>
+                    
+                    <h1 class="font-display text-4xl sm:text-6xl lg:text-7.5xl font-black text-white leading-none tracking-tight uppercase">
+                        CLEAN.<br>
+                        CLEAR.<br>
+                        <span class="text-spsOrange">MAINTAIN.</span>
+                    </h1>
+                    
+                    <p class="font-display text-xl sm:text-2xl font-bold tracking-wider text-gray-300 uppercase italic">
+                        "WE GET IT DONE."
+                    </p>
+                    
+                    <p class="text-gray-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-sans">
+                        From high-pressure exterior washing and intensive estate cleanouts to complete shed demolitions and yard restorations, <strong class="text-white">Schorer Property Services</strong> guarantees premium professional execution.
+                    </p>
+
+                    <!-- Interactive Action Row -->
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 pt-2">
+                        <a href="#contact" class="w-full sm:w-auto text-center bg-spsOrange hover:bg-spsOrange-hover text-white font-display text-lg font-bold py-4 px-8 rounded shadow-lg shadow-spsOrange/20 transition-all transform hover:-translate-y-0.5 uppercase tracking-wider">
+                            Book Free Onsite Estimate
+                        </a>
+                        <a href="#services" class="w-full sm:w-auto text-center bg-transparent hover:bg-white/5 text-gray-300 hover:text-white border border-gray-700 font-display text-lg font-bold py-4 px-8 rounded transition-all">
+                            Our Core Specialties
+                        </a>
+                    </div>
+
+                    <!-- Client Trust Strip -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-spsBorder/60 max-w-md mx-auto lg:mx-0">
+                        <div class="text-center lg:text-left">
+                            <div class="font-display text-3xl font-extrabold text-white">100%</div>
+                            <div class="text-xs text-gray-400 uppercase tracking-widest">Satisfied Clients</div>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <div class="font-display text-3xl font-extrabold text-white">Fully</div>
+                            <div class="text-xs text-gray-400 uppercase tracking-widest">Insured Crew</div>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <div class="font-display text-3xl font-extrabold text-white">Local</div>
+                            <div class="text-xs text-gray-400 uppercase tracking-widest">Family Operated</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Real, Beautiful, High-Contrast Project Work Showcase Image -->
+                <div class="lg:col-span-6">
+                    <div class="relative group overflow-hidden rounded-2xl border-2 border-spsBorder bg-spsCard p-2 shadow-2xl transition duration-500 hover:border-spsOrange">
+                        <!-- Modern Glossy Accent Layer -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-spsOrange/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 z-10 pointer-events-none"></div>
+                        
+                        <!-- High Quality Service Action Image -->
+                        <img src="https://images.unsplash.com/photo-1528255671579-01b9e182ed1d?auto=format&fit=crop&w=1200&q=80" 
+                             alt="Professional Power Washing in progress" 
+                             class="w-full h-[400px] object-cover rounded-xl transition duration-700 group-hover:scale-[1.03]"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80';">
+                        
+                        <!-- Floating Content Banner -->
+                        <div class="absolute bottom-6 left-6 right-6 bg-spsDark/90 backdrop-blur-md p-4 rounded-xl border border-spsBorder flex items-center justify-between z-20">
+                            <div>
+                                <span class="text-spsOrange text-xs font-display font-black tracking-widest uppercase block">PROVEN RESULTS</span>
+                                <h4 class="text-white font-bold text-sm sm:text-base">High-Performance Exterior Cleaning</h4>
+                            </div>
+                            <a href="#transformations" class="bg-spsOrange text-white text-xs font-bold uppercase py-2 px-3 rounded hover:bg-white hover:text-spsDark transition-colors">
+                                View Work
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DETAILED CORE SERVICES SECTION -->
+    <section id="services" class="py-24 bg-spsCard border-b border-spsBorder relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-spsOrange uppercase tracking-widest text-sm font-black font-display"><i class="fa-solid fa-toolbox mr-1"></i> What We Bring To Every Job</span>
+                <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase text-white">
+                    OUR CORE <span class="text-spsOrange">SPECIALTIES</span>
+                </h2>
+                <div class="w-20 h-1.5 bg-spsOrange mx-auto rounded-full"></div>
+                <p class="text-gray-400 text-base">
+                    From Rome, NY to surrounding locations, we handle tough property cleanup & yard management work using heavy equipment and experienced local crews.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                
+                <!-- Card 1: Pressure Washing -->
+                <div class="bg-spsDark p-6 rounded-xl border border-spsBorder group hover:border-spsOrange transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-spsOrange/10 rounded-lg flex items-center justify-center text-spsOrange text-2xl group-hover:bg-spsOrange group-hover:text-white transition-all">
+                            <i class="fa-solid fa-shower"></i>
+                        </div>
+                        <h3 class="font-display text-xl uppercase font-bold text-white tracking-wide group-hover:text-spsOrange transition-colors">
+                            Pressure Washing
+                        </h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            Deep cleanups of siding, decks, driveways, sidewalks, and patios. We strip mold, mildew, and grime back to perfect surfaces.
+                        </p>
+                    </div>
+                    <button onclick="selectService('pressure-washing')" class="mt-6 text-xs text-spsOrange font-bold uppercase tracking-wider hover:underline text-left flex items-center gap-1.5 focus:outline-none">
+                        Request Quote <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 2: Cleanouts & Junk Removal -->
+                <div class="bg-spsDark p-6 rounded-xl border border-spsBorder group hover:border-spsOrange transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-spsOrange/10 rounded-lg flex items-center justify-center text-spsOrange text-2xl group-hover:bg-spsOrange group-hover:text-white transition-all">
+                            <i class="fa-solid fa-truck-ramp-box"></i>
+                        </div>
+                        <h3 class="font-display text-xl uppercase font-bold text-white tracking-wide group-hover:text-spsOrange transition-colors">
+                            Cleanouts & Junk Removal
+                        </h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            Basements, garages, full houses, attics, and commercial estate clearings. You point to the clutter, we handle everything else.
+                        </p>
+                    </div>
+                    <button onclick="selectService('cleanouts')" class="mt-6 text-xs text-spsOrange font-bold uppercase tracking-wider hover:underline text-left flex items-center gap-1.5 focus:outline-none">
+                        Request Quote <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 3: Small Demolition -->
+                <div class="bg-spsDark p-6 rounded-xl border border-spsBorder group hover:border-spsOrange transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-spsOrange/10 rounded-lg flex items-center justify-center text-spsOrange text-2xl group-hover:bg-spsOrange group-hover:text-white transition-all">
+                            <i class="fa-solid fa-trowel-bricks"></i>
+                        </div>
+                        <h3 class="font-display text-xl uppercase font-bold text-white tracking-wide group-hover:text-spsOrange transition-colors">
+                            Small Demolition
+                        </h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            Backyard wooden/metal shed tear-downs, deck dismantling, fence removals, and structures cleared out with correct heavy utility loaders.
+                        </p>
+                    </div>
+                    <button onclick="selectService('demolition')" class="mt-6 text-xs text-spsOrange font-bold uppercase tracking-wider hover:underline text-left flex items-center gap-1.5 focus:outline-none">
+                        Request Quote <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 4: Property Maintenance -->
+                <div class="bg-spsDark p-6 rounded-xl border border-spsBorder group hover:border-spsOrange transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-spsOrange/10 rounded-lg flex items-center justify-center text-spsOrange text-2xl group-hover:bg-spsOrange group-hover:text-white transition-all">
+                            <i class="fa-solid fa-hammer"></i>
+                        </div>
+                        <h3 class="font-display text-xl uppercase font-bold text-white tracking-wide group-hover:text-spsOrange transition-colors">
+                            Property Maintenance
+                        </h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            Lawn core care, hedge overgrowth cleanup, structural repairs, regular estate monitoring, and comprehensive land preservation.
+                        </p>
+                    </div>
+                    <button onclick="selectService('maintenance')" class="mt-6 text-xs text-spsOrange font-bold uppercase tracking-wider hover:underline text-left flex items-center gap-1.5 focus:outline-none">
+                        Request Quote <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 5: Trailer Services -->
+                <div class="bg-spsDark p-6 rounded-xl border border-spsBorder group hover:border-spsOrange transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-spsOrange/10 rounded-lg flex items-center justify-center text-spsOrange text-2xl group-hover:bg-spsOrange group-hover:text-white transition-all">
+                            <i class="fa-solid fa-trailer"></i>
+                        </div>
+                        <h3 class="font-display text-xl uppercase font-bold text-white tracking-wide group-hover:text-spsOrange transition-colors">
+                            Trailer Services
+                        </h3>
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            Equipment drop-offs, landscape material deliveries (mulch, gravel, topsoil), and heavy junk transport to regional disposal hubs.
+                        </p>
+                    </div>
+                    <button onclick="selectService('trailer-services')" class="mt-6 text-xs text-spsOrange font-bold uppercase tracking-wider hover:underline text-left flex items-center gap-1.5 focus:outline-none">
+                        Request Quote <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE BEFORE/AFTER SLIDER SECTION -->
+    <section id="transformations" class="py-24 bg-spsDark border-b border-spsBorder relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left side: Explanation of execution -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-spsOrange font-display uppercase tracking-widest text-sm font-black"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Visual Proof of Execution</span>
+                    <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase text-white leading-tight">
+                        Witness the <span class="text-spsOrange">Transformation</span>
+                    </h2>
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        Our before/after metrics match the jobs depicted in our core design files. We excel in taking cluttered, structurally unsound spaces and restoring them back to raw land or cleanly organized structures.
+                    </p>
+
+                    <div class="bg-spsCard p-5 rounded-lg border border-spsBorder space-y-3">
+                        <h4 class="text-white font-bold font-display uppercase tracking-wider text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-spsOrange"></i> Site Remediation Specialists
+                        </h4>
+                        <p class="text-xs text-gray-400">
+                            We take pride in turning deteriorating, unsafe structures into pristine, secure spaces you can confidently repurpose.
+                        </p>
+                        <div class="text-xs font-mono text-spsOrange space-y-1 bg-black/40 p-2.5 rounded">
+                            <div>• Status: Cleared Clean & Hauled Off</div>
+                            <div>• Location: Rome Metro Property Zone</div>
+                            <div>• Time: <span class="text-gray-400 font-sans">1-Day Turnaround</span></div>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="inline-flex items-center gap-2 text-spsOrange hover:text-white font-bold font-display uppercase tracking-wider text-sm group">
+                        Let Us Clear Your Property <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+                <!-- Right side: The Interactive Slider element with live user control -->
+                <div class="lg:col-span-7">
+                    <div class="bg-spsCard p-4 rounded-xl border border-spsBorder shadow-2xl space-y-4">
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span><i class="fa-solid fa-hand-pointer mr-1 text-spsOrange"></i> Drag the divider arrow to see Before vs After</span>
+                            <span class="font-bold text-white bg-spsBorder px-2.5 py-0.5 rounded font-mono">Rome, NY Shed Job</span>
+                        </div>
+
+                        <!-- Draggable Container -->
+                        <div class="relative w-full h-[320px] sm:h-[450px] overflow-hidden rounded-lg select-none shadow-inner" id="before-after-container">
+                            <!-- After Picture Layer (Base) -->
+                            <div class="absolute inset-0 w-full h-full bg-zinc-900 flex flex-col justify-center items-center text-center p-6 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1558905617-15455d3aefe5?auto=format&fit=crop&w=1200&q=80');">
+                                <div class="max-w-md space-y-3 relative z-10 bg-spsDark/80 p-6 rounded-lg border border-spsBorder/50 backdrop-blur-sm">
+                                    <div class="inline-block bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-display font-bold text-xs px-3 py-1 rounded">AFTER (SPS Execution)</div>
+                                    <h4 class="text-2xl font-display font-bold uppercase text-white tracking-wide">Fully Reclaimed Yard Space</h4>
+                                    <p class="text-xs text-gray-300 leading-relaxed font-sans">Shed completely removed. All waste sorted, cataloged, loaded into trailers, and legally disposed. Ground raked clean and restored.</p>
+                                    <div class="text-emerald-400 text-4xl"><i class="fa-solid fa-circle-check"></i></div>
+                                </div>
+                            </div>
+
+                            <!-- Before Picture Layer (Overlay) -->
+                            <div class="absolute inset-y-0 left-0 w-1/2 h-full bg-[#1e1411] flex flex-col justify-center items-center text-center p-6 border-r-2 border-spsOrange overflow-hidden bg-cover bg-center" id="before-layer" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1584467541268-b040f83be3fd?auto=format&fit=crop&w=1200&q=80');">
+                                <div class="min-w-[300px] sm:min-w-[450px] space-y-3 relative z-10 bg-amber-950/80 p-6 rounded-lg border border-orange-900/50 backdrop-blur-sm">
+                                    <div class="inline-block bg-rose-500/10 border border-rose-500/30 text-rose-400 font-display font-bold text-xs px-3 py-1 rounded">BEFORE (Overgrown Outbuilding)</div>
+                                    <h4 class="text-2xl font-display font-bold uppercase text-white tracking-wide">Dilapidated Storage Shed</h4>
+                                    <p class="text-xs text-gray-300 leading-relaxed font-sans">Weather-damaged, structurally compromised, taking up crucial yard footprint, and hosting unwanted wildlife.</p>
+                                    <div class="text-rose-400 text-4xl"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                </div>
+                            </div>
+
+                            <!-- Range Input acting as the Slider Controller -->
+                            <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20" id="slider-input" oninput="updateSlider(this.value)">
+
+                            <!-- Visual Indicator line & Handle -->
+                            <div class="absolute inset-y-0 pointer-events-none z-10 w-1 bg-spsOrange left-[50%] -translate-x-1/2 slider-handle" id="slider-handle-bar"></div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <button onclick="updateSlider(100)" class="text-center py-2 bg-spsDark text-xs uppercase font-bold text-gray-400 rounded hover:bg-spsBorder transition">Show Full BEFORE</button>
+                            <button onclick="updateSlider(0)" class="text-center py-2 bg-spsDark text-xs uppercase font-bold text-gray-400 rounded hover:bg-spsBorder transition">Show Full AFTER</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS & TESTIMONIAL FEED SECTION -->
+    <section id="reviews" class="py-24 bg-spsDark border-b border-spsBorder relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-4">
+                <div>
+                    <span class="text-spsOrange uppercase tracking-widest text-sm font-black font-display"><i class="fa-solid fa-comment-dots mr-1"></i> Client Experiences</span>
+                    <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase text-white mt-1">
+                        WORDS FROM THE <span class="text-spsOrange">FIELD</span>
+                    </h2>
+                </div>
+                <button onclick="openReviewModal()" class="bg-spsBorder hover:bg-gray-800 text-white border border-gray-700 py-3 px-6 rounded font-display uppercase tracking-wider text-sm font-bold transition">
+                    Leave a Review
+                </button>
+            </div>
+
+            <!-- Review Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="bg-spsCard p-6 rounded-xl border border-spsBorder space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex text-spsOrange text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-sm italic font-sans">
+                            "Excellent pressure washing! They cleaned our deck and front steps in Rome and completely restored the timber color. Professional, fast, and fair pricing."
+                        </p>
+                    </div>
+                    <div class="border-t border-spsBorder/60 pt-4 flex items-center justify-between">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Marcus K.</h4>
+                            <span class="text-xs text-gray-500">Pressure Washing Client</span>
+                        </div>
+                        <span class="bg-spsDark text-gray-400 font-mono text-[10px] px-2 py-0.5 rounded">Verified</span>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-spsCard p-6 rounded-xl border border-spsBorder space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex text-spsOrange text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-sm italic font-sans">
+                            "Schorer and his crew took down an old collapsing wooden shed on my property. They loaded everything onto their trailers in hours and left the lawn completely flat. Amazing job!"
+                        </p>
+                    </div>
+                    <div class="border-t border-spsBorder/60 pt-4 flex items-center justify-between">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">David G.</h4>
+                            <span class="text-xs text-gray-500">Shed Demolition Client</span>
+                        </div>
+                        <span class="bg-spsDark text-gray-400 font-mono text-[10px] px-2 py-0.5 rounded">Verified</span>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-spsCard p-6 rounded-xl border border-spsBorder space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex text-spsOrange text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-sm italic font-sans">
+                            "SPS manages our property cleanup twice a year. Always responsive on Facebook and cell. Highly recommend Schorer Property Services for any hauling or maintenance work."
+                        </p>
+                    </div>
+                    <div class="border-t border-spsBorder/60 pt-4 flex items-center justify-between">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Sarah P.</h4>
+                            <span class="text-xs text-gray-500">Property Maintenance Client</span>
+                        </div>
+                        <span class="bg-spsDark text-gray-400 font-mono text-[10px] px-2 py-0.5 rounded">Verified</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECURE ESTIMATE FORM & CONTACT SECTION -->
+    <section id="contact" class="py-24 bg-spsCard relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Left Details & Brand Contacts -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <span class="text-spsOrange uppercase tracking-widest text-sm font-black font-display"><i class="fa-solid fa-address-book mr-1"></i> Quick Action</span>
+                        <h2 class="font-display text-4xl sm:text-5xl font-extrabold uppercase text-white leading-tight">
+                            GET IN TOUCH <span class="text-spsOrange">TODAY</span>
+                        </h2>
+                        <p class="text-gray-400 text-base leading-relaxed font-sans">
+                            Questions about a big cleanup, trailer load, or local pricing parameters? We're on call! Use our secure intake form or click to call our dispatch team directly.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Card: Call direct -->
+                        <a href="tel:3152408570" class="flex items-center gap-4 bg-spsDark p-5 rounded-lg border border-spsBorder hover:border-spsOrange transition-colors block">
+                            <div class="bg-spsOrange/10 text-spsOrange text-2xl p-4 rounded-full">
+                                <i class="fa-solid fa-phone-volume"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display uppercase font-bold text-white tracking-wider text-sm">Call / Text Dispatch</h4>
+                                <span class="font-mono text-xl text-spsOrange font-black">(315) 240-8570</span>
+                                <span class="block text-xs text-gray-500 mt-0.5">Rome, NY & Surrounding Counties</span>
+                            </div>
+                        </a>
+
+                        <!-- Card: Facebook Profile Page -->
+                        <a href="https://www.facebook.com/profile.php?id=61590218977603" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 bg-spsDark p-5 rounded-lg border border-spsBorder hover:border-spsOrange transition-colors block">
+                            <div class="bg-blue-600/10 text-blue-500 text-2xl p-4 rounded-full">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display uppercase font-bold text-white tracking-wider text-sm">Facebook profile</h4>
+                                <span class="text-sm text-gray-300 font-semibold block font-sans">profile.php?id=61590218977603</span>
+                                <span class="block text-xs text-gray-500 mt-0.5">Send a message and view work photos</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Trust indicators inside the sidebar -->
+                    <div class="bg-spsDark/50 p-6 rounded-lg border border-spsBorder/60 space-y-4">
+                        <h4 class="font-display uppercase font-bold text-xs tracking-wider text-white">Our Commitments</h4>
+                        <ul class="space-y-2 text-xs text-gray-400 font-sans">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-spsOrange"></i> No hidden fees or surprise disposal costs</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-spsOrange"></i> All debris safely sorted & legally recycled/dumped</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-spsOrange"></i> Extreme respect for your lawns, gardens & structural surroundings</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Form Area -->
+                <div class="lg:col-span-7 bg-spsDark p-6 sm:p-10 rounded-xl border border-spsBorder shadow-2xl relative">
+                    <!-- Secure CSRF Token Placeholder Simulation for compliance integrity -->
+                    <input type="hidden" id="secure-csrf-token" value="sps_sec_7852b7ca89df9c31">
+
+                    <form id="secure-booking-form" onsubmit="handleSecureSubmit(event)" class="space-y-6">
+                        <div class="border-b border-spsBorder pb-4">
+                            <h3 class="font-display text-2xl uppercase font-bold text-white">Secure Intake Request</h3>
+                            <p class="text-xs text-gray-400 mt-1">Provide job details to request an immediate onsite consultation</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="contact-name" class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400 mb-2">Full Name *</label>
+                                <input type="text" id="contact-name" required autocomplete="name" placeholder="John Doe"
+                                    class="w-full bg-spsCard border border-spsBorder rounded px-4 py-3 text-white text-sm focus:outline-none focus:border-spsOrange transition-colors">
+                            </div>
+                            <div>
+                                <label for="contact-phone" class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400 mb-2">Phone Number *</label>
+                                <input type="tel" id="contact-phone" required autocomplete="tel" placeholder="(315) 555-0199"
+                                    class="w-full bg-spsCard border border-spsBorder rounded px-4 py-3 text-white text-sm focus:outline-none focus:border-spsOrange transition-colors">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="contact-email" class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400 mb-2">Email Address</label>
+                                <input type="email" id="contact-email" autocomplete="email" placeholder="john@example.com"
+                                    class="w-full bg-spsCard border border-spsBorder rounded px-4 py-3 text-white text-sm focus:outline-none focus:border-spsOrange transition-colors">
+                            </div>
+                            <div>
+                                <label for="contact-service" class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400 mb-2">Service Required *</label>
+                                <select id="contact-service" required
+                                    class="w-full bg-spsCard border border-spsBorder rounded px-4 py-3 text-gray-300 text-sm focus:outline-none focus:border-spsOrange transition-colors">
+                                    <option value="" disabled selected>Select Primary Need</option>
+                                    <option value="pressure-washing">Pressure Washing</option>
+                                    <option value="cleanouts">Cleanouts & Junk Removal</option>
+                                    <option value="demolition">Small Demolition</option>
+                                    <option value="maintenance">Property Maintenance</option>
+                                    <option value="trailer-services">Trailer / Materials Services</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="contact-address" class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400 mb-2">Property Address / City *</label>
+                            <input type="text" id="contact-address" required placeholder="Rome, NY"
+                                class="w-full bg-spsCard border border-spsBorder rounded px-4 py-3 text-white text-sm focus:outline-none focus:border-spsOrange transition-colors">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="contact-details" class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400">Describe the Job & Dimensions</label>
+                                <span class="text-[10px] text-gray-500 font-mono" id="estimate-tag"></span>
+                            </div>
+                            <textarea id="contact-details" rows="4" placeholder="Tell us about the size, accessibility, and details of the property cleanout or washing work..."
+                                class="w-full bg-spsCard border border-spsBorder rounded px-4 py-3 text-white text-sm focus:outline-none focus:border-spsOrange transition-colors resize-none"></textarea>
+                        </div>
+
+                        <!-- Safety and compliance agreement -->
+                        <div class="flex items-start gap-3 bg-spsCard/40 p-4 rounded border border-spsBorder">
+                            <input type="checkbox" id="terms" required class="mt-1 accent-spsOrange">
+                            <label for="terms" class="text-xs text-gray-400 leading-relaxed font-sans">
+                                I agree to the processing of this secure inquiry. I understand Schorer Property Services will use this information to calculate my quote, schedule my service, or reach me by phone/SMS.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="w-full bg-spsOrange hover:bg-spsOrange-hover text-white py-4 px-6 rounded font-display text-lg font-bold uppercase tracking-wider transition-all skew-x-[-6deg]">
+                            <span class="inline-block skew-x-[6deg]"><i class="fa-solid fa-paper-plane mr-1.5"></i> Submit Secure Quote Request</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIAL WRITE MODAL -->
+    <div id="review-modal" class="hidden fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4">
+        <div class="bg-spsCard border border-spsBorder w-full max-w-lg rounded-xl overflow-hidden shadow-2xl transform transition-transform animate-[zoomIn_0.2s_ease-out]">
+            <div class="bg-spsDark p-5 border-b border-spsBorder flex items-center justify-between">
+                <h3 class="font-display text-xl uppercase font-bold text-white"><i class="fa-solid fa-feather mr-2 text-spsOrange"></i> Write A Review</h3>
+                <button onclick="closeReviewModal()" class="text-gray-400 hover:text-white text-xl focus:outline-none">&times;</button>
+            </div>
+            <form onsubmit="submitCustomReview(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400 mb-2">Overall Rating</label>
+                    <div class="flex gap-2 text-2xl text-gray-600">
+                        <button type="button" onclick="setRating(1)" class="star-btn hover:text-spsOrange transition-colors"><i class="fa-solid fa-star"></i></button>
+                        <button type="button" onclick="setRating(2)" class="star-btn hover:text-spsOrange transition-colors"><i class="fa-solid fa-star"></i></button>
+                        <button type="button" onclick="setRating(3)" class="star-btn hover:text-spsOrange transition-colors"><i class="fa-solid fa-star"></i></button>
+                        <button type="button" onclick="setRating(4)" class="star-btn hover:text-spsOrange transition-colors"><i class="fa-solid fa-star"></i></button>
+                        <button type="button" onclick="setRating(5)" class="star-btn text-spsOrange transition-colors"><i class="fa-solid fa-star"></i></button>
+                    </div>
+                    <input type="hidden" id="new-review-rating" value="5">
+                </div>
+
+                <div>
+                    <label for="new-review-name" class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400 mb-2">Your Name *</label>
+                    <input type="text" id="new-review-name" required placeholder="Jane D." class="w-full bg-spsDark border border-spsBorder rounded p-3 text-white text-sm focus:outline-none focus:border-spsOrange">
+                </div>
+
+                <div>
+                    <label for="new-review-service" class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400 mb-2">Service You Received *</label>
+                    <select id="new-review-service" required class="w-full bg-spsDark border border-spsBorder rounded p-3 text-white text-sm focus:outline-none focus:border-spsOrange">
+                        <option value="Pressure Washing Client">Pressure Washing</option>
+                        <option value="Junk Removal Client">Cleanouts & Junk Removal</option>
+                        <option value="Demolition Client">Small Demolition</option>
+                        <option value="Maintenance Client">Property Maintenance</option>
+                        <option value="Trailer Services Client">Trailer Services</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="new-review-text" class="block text-xs uppercase tracking-wider font-display font-bold text-gray-400 mb-2">Your Review *</label>
+                    <textarea id="new-review-text" required rows="4" placeholder="How was your experience working with Schorer Property Services?" class="w-full bg-spsDark border border-spsBorder rounded p-3 text-white text-sm focus:outline-none focus:border-spsOrange resize-none font-sans"></textarea>
+                </div>
+
+                <div class="pt-4 flex justify-end gap-3">
+                    <button type="button" onclick="closeReviewModal()" class="py-2.5 px-5 rounded bg-spsBorder text-gray-400 hover:text-white transition">Cancel</button>
+                    <button type="submit" class="py-2.5 px-6 rounded bg-spsOrange hover:bg-spsOrange-hover text-white font-display uppercase tracking-wider text-sm font-bold transition">Post Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DYNAMIC NOTIFICATION SYSTEM (Alternative to native alerts) -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-3 pointer-events-none"></div>
+
+    <!-- CORPORATE DETAILED FOOTER -->
+    <footer class="bg-spsDark border-t border-spsBorder py-12 text-sm text-gray-400 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                
+                <!-- Brand Profile -->
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-spsOrange text-white font-display text-lg font-black px-2.5 py-0.5 skew-x-12 rounded border border-white/20">
+                            <span class="inline-block -skew-x-12">SPS</span>
+                        </div>
+                        <span class="font-display text-xl font-bold tracking-tight text-white uppercase">
+                            SCHORER <span class="text-spsOrange">PROPERTY</span> SERVICES
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-500 max-w-sm leading-relaxed font-sans">
+                        Rome, NY's trusted partner for cleanouts, pressure washing, small demolition, and regional maintenance operations. Locally owned, fully insured, and built on reliable, rugged property execution.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://www.facebook.com/profile.php?id=61590218977603" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-spsCard rounded-full flex items-center justify-center border border-spsBorder hover:bg-spsOrange hover:text-white hover:border-spsOrange transition-all text-gray-300">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="tel:3152408570" class="w-10 h-10 bg-spsCard rounded-full flex items-center justify-center border border-spsBorder hover:bg-spsOrange hover:text-white hover:border-spsOrange transition-all text-gray-300">
+                            <i class="fa-solid fa-phone"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Fast Links -->
+                <div class="space-y-4">
+                    <h4 class="font-display text-sm font-bold uppercase tracking-wider text-white font-sans">Our Pages</h4>
+                    <ul class="space-y-2 text-xs font-sans">
+                        <li><a href="#services" class="hover:text-spsOrange transition">Services Grid</a></li>
+                        <li><a href="#transformations" class="hover:text-spsOrange transition">Transformations</a></li>
+                        <li><a href="#reviews" class="hover:text-spsOrange transition">Client Testimonials</a></li>
+                        <li><a href="#contact" class="hover:text-spsOrange transition">Get in Touch</a></li>
+                    </ul>
+                </div>
+
+                <!-- Coordinates & Details -->
+                <div class="space-y-4">
+                    <h4 class="font-display text-sm font-bold uppercase tracking-wider text-white font-sans">Main Coordinates</h4>
+                    <ul class="space-y-2 text-xs font-sans">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-crosshairs text-spsOrange"></i> Rome, New York 13440</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-clock text-spsOrange"></i> Mon - Sat: 7:00 AM - 6:00 PM</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-spsOrange"></i> Active regional NY operations</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <hr class="border-spsBorder my-6">
+
+            <!-- Foot-Note Row with Compliance placeholders -->
+            <div class="flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-600 gap-4 font-sans">
+                <p>&copy; 2026 Schorer Property Services. All rights reserved. Locally Owned & Operated.</p>
+                <div class="flex gap-4">
+                    <span>Fully Insured & Bonded</span>
+                    <span>•</span>
+                    <a href="#" class="hover:underline">Secure Connection Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SYSTEM SCRIPTS -->
+    
+  <script src="script.js"></script>
+</body>
+</html>
