@@ -1,11 +1,9 @@
-/* Custom subtle focus and animated glow styles to match SPS brand */
-        .brand-glow {
+.brand-glow {
             box-shadow: 0 0 15px rgba(242, 90, 34, 0.2);
         }
         .brand-glow:hover {
             box-shadow: 0 0 25px rgba(242, 90, 34, 0.4);
         }
-        /* Custom handle styling for Before/After Slider */
         .slider-handle::after {
             content: '';
             position: absolute;
